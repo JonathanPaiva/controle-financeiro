@@ -13,7 +13,25 @@ return new class extends Migration
     {
         Schema::create('receitas', function (Blueprint $table) {
             $table->id();
+            
+            $table->string('descricao',255)
+                ->nullable(false);
+
+            $table->float('valor',8,2)
+                ->nullable(false)
+                ->default(0);
+
+            $table->date('data')
+                ->nullable(false)
+                ->default(now());
+
+            $table->string('tipo',1)
+                ->nullable(false)
+                ->default('C');
+
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

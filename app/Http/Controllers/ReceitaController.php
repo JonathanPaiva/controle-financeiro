@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receita;
-use App\Http\Requests\StoreReceitaRequest;
-use App\Http\Requests\UpdateReceitaRequest;
+use App\Http\Requests\ReceitaRequest;
 
 class ReceitaController extends Controller
 {
@@ -17,17 +16,9 @@ class ReceitaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReceitaRequest $request)
+    public function store(ReceitaRequest $request)
     {
         //
     }
@@ -41,17 +32,9 @@ class ReceitaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Receita $receita)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReceitaRequest $request, Receita $receita)
+    public function update(ReceitaRequest $request, Receita $receita)
     {
         //
     }

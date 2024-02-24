@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Despesa;
-use App\Http\Requests\StoreDespesaRequest;
-use App\Http\Requests\UpdateDespesaRequest;
+use App\Http\Requests\DespesaRequest;
 
 class DespesaController extends Controller
 {
@@ -17,17 +16,9 @@ class DespesaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDespesaRequest $request)
+    public function store(DespesaRequest $request)
     {
         //
     }
@@ -41,17 +32,9 @@ class DespesaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Despesa $despesa)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDespesaRequest $request, Despesa $despesa)
+    public function update(DespesaRequest $request, Despesa $despesa)
     {
         //
     }
