@@ -15,6 +15,7 @@ class Receita extends Model
         'descricao',
         'valor',
         'data',
-        'tipo'
+        'tipo',
+        'grupo'
     ];
 }

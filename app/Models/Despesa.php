@@ -15,6 +15,8 @@ class Despesa extends Model
         'descricao',
         'valor',
         'data',
-        'tipo'
+        'categoria',
+        'tipo',
+        'grupo'
     ];
 }

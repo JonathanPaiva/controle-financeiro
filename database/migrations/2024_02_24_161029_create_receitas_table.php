@@ -29,6 +29,9 @@ return new class extends Migration
                 ->nullable(false)
                 ->default('C');
 
+            $table->string('grupo',20)
+                ->nullable(false);
+
             $table->timestamps();
 
             $table->softDeletes();

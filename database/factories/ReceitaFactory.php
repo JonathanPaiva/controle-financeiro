@@ -17,10 +17,11 @@ class ReceitaFactory extends Factory
     public function definition(): array
     {
         return [
-            'descricao' => fake()->text(),
-            'valor' => fake()->randomFloat(2,0,9999.99),
+            'descricao' => fake()->text(10),
+            'valor' => fake()->randomFloat(2,0,999.99),
             'data' => fake()->dateTimeThisMonth(),
-            'tipo' => 'C'
+            'tipo' => 'C',
+            'grupo' => fake()->randomElement(['Fixa', 'Variável'])
         ];
     }
 }

@@ -25,9 +25,15 @@ return new class extends Migration
                 ->nullable(false)
                 ->default(now());
             
+            $table->string('categoria',25)
+                ->nullable(false);
+            
             $table->string('tipo',1)
                 ->nullable(false)
                 ->default('D');
+            
+            $table->string('grupo',20)
+                ->nullable(false);
             
             $table->timestamps();
             

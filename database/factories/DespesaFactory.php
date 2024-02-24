@@ -17,10 +17,12 @@ class DespesaFactory extends Factory
     public function definition(): array
     {
         return [
-            'descricao' => fake()->text(),
-            'valor' => fake()->randomFloat(2,0,9999.99),
+            'descricao' => fake()->text(10),
+            'valor' => fake()->randomFloat(2,0,999.99),
             'data' => fake()->dateTimeThisMonth(),
-            'tipo' => 'D'
+            'categoria' => fake()->randomElement(['Moradia', 'Comunicação', 'Transporte', 'Lazer', 'Alimentação', 'Saúde', 'Cartão de Crédito']),
+            'tipo' => 'D',
+            'grupo' => fake()->randomElement(['Fixa', 'Variável'])
         ];
     }
 }
