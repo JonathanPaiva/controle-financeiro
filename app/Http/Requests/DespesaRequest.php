@@ -2,16 +2,21 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\HttpResponses;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class DespesaRequest extends FormRequest
 {
+    use HttpResponses;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +26,38 @@ class DespesaRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+            'descricao' => [
+                'required', 
+                'min:3', 
+                'max:255'
+            ],
+            'valor' => [
+                'required',
+                'numeric'
+            ],
+            'data' => [
+                'required',
+                'date'
+            ],
+            'categoria' =>[
+                'required'
+            ],
+            'grupo' =>[
+                'required',
+                Rule::in(['Fixa', 'Variável'])
+            ]
         ];
+
+        return $rules;
+    }
+
+    protected function failedValidation(Validator $validator) {
+        
+        $errors = $validator->errors()->toArray();
+
+        $responseError = $this->errorResponse('Data Invalid',422, $errors);
+
+        throw new HttpResponseException($responseError);
     }
 }

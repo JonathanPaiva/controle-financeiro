@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DespesaController;
 use App\Http\Controllers\Api\ReceitaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,10 @@ Route::post('/receitas',[ReceitaController::class,'store']);
 Route::get('/receitas/{id}',[ReceitaController::class,'show']);
 Route::put('/receitas/{id}',[ReceitaController::class,'store']);
 Route::delete('/receitas/{id}', [ReceitaController::class,'destroy']);
+
+//Route::apiResource('/despesas', DespesaController::class);
+Route::get('/despesas',[DespesaController::class,'index']);
+Route::post('/despesas',[DespesaController::class,'store']);
+Route::get('/despesas/{id}',[DespesaController::class,'show']);
+Route::put('/despesas/{id}',[DespesaController::class,'store']);
+Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);

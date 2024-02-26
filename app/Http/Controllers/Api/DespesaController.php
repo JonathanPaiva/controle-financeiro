@@ -3,48 +3,75 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Despesa;
 use App\Http\Requests\DespesaRequest;
+use App\Http\Resources\DespesaResource;
+use App\Services\DespesaService;
+use App\Traits\HttpResponses;
 
 class DespesaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use HttpResponses;
+
+    public function __construct(protected DespesaService $despesaService)
+    {
+        
+    }
+
     public function index()
     {
-        //
+        $despesas = $this->despesaService->getAll();
+
+        $despesasJson = DespesaResource::collection($despesas);
+        
+        return $this->successResponse('Sucesso',200,$despesasJson);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(DespesaRequest $request)
+    public function store(DespesaRequest $despesaRequest, int $despesa_id = 0)
     {
-        //
+
+        if ($despesa_id) {
+            
+            if ($despesa_id <> $despesaRequest->id) {
+                return $this->errorResponse('Despesa com parâmetros incorretos', 406);
+            }
+
+            $despesa = $this->despesaService->update($despesaRequest, $despesa_id);
+
+            $despesaJson = new DespesaResource($despesa);
+
+            return $this->successResponse('Despesa alterada', 200, $despesaJson );
+        }
+
+        $despesa = $this->despesaService->create($despesaRequest);
+
+        $despesa = $this->despesaService->getById($despesa->id);
+
+        $despesaJson = new DespesaResource($despesa);
+
+        return $this->successResponse('Despesa criada', 201, $despesaJson);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Despesa $despesa)
+    public function show(int $despesa_id)
     {
-        //
+        $despesa = $this->despesaService->getById($despesa_id);
+
+        if (!$despesa) {
+            return $this->errorResponse('Despesa não encontrada', 404);
+        }
+
+        $despesaJson = new DespesaResource($despesa);
+
+        return $this->successResponse('Despesa encontrada', 200, $despesaJson);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(DespesaRequest $request, Despesa $despesa)
+    public function destroy(int $despesa_id)
     {
-        //
-    }
+        $despesaDeletada = $this->despesaService->delete($despesa_id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Despesa $despesa)
-    {
-        //
+        if (!$despesaDeletada) {
+            return $this->errorResponse('Despesa não encontrada', 404);
+        }
+
+        return $this->successResponse('Despesa Deletada', 204);
     }
 }
