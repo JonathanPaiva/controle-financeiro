@@ -41,7 +41,10 @@ class DespesaRequest extends FormRequest
                 'date'
             ],
             'categoria' =>[
-                'required'
+                'nullable',
+                Rule::in(['Alimentação', 'Saúde', 'Moradia',         
+                'Transporte', 'Educação', 'Lazer', 'Imprevistos',
+                'Outras', ''])
             ],
             'grupo' =>[
                 'required',

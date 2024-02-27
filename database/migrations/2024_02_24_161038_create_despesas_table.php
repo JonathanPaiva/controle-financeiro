@@ -26,7 +26,8 @@ return new class extends Migration
                 ->default(now());
             
             $table->string('categoria',25)
-                ->nullable(false);
+                ->nullable(false)
+                ->default('Outras');
             
             $table->string('tipo',1)
                 ->nullable(false)

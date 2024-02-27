@@ -20,7 +20,9 @@ class DespesaFactory extends Factory
             'descricao' => fake()->text(10),
             'valor' => fake()->randomFloat(2,0,999.99),
             'data' => fake()->dateTimeThisMonth(),
-            'categoria' => fake()->randomElement(['Moradia', 'Comunicação', 'Transporte', 'Lazer', 'Alimentação', 'Saúde', 'Cartão de Crédito']),
+            'categoria' => fake()->randomElement(['Alimentação', 'Saúde', 'Moradia',         
+                                                        'Transporte', 'Educação', 'Lazer', 
+                                                        'Imprevistos','Outras']),
             'tipo' => 'D',
             'grupo' => fake()->randomElement(['Fixa', 'Variável'])
         ];

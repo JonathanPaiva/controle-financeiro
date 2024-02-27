@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Http\Requests\DespesaRequest;
 use App\Models\Despesa;
 
+use function PHPUnit\Framework\isNull;
+
 class DespesaService
 {
 
@@ -29,7 +31,13 @@ class DespesaService
 
     public function create(DespesaRequest $despesaRequest)
     {
-        return $this->despesaRepository->create($despesaRequest->validated());
+        $despesaValidated = $despesaRequest->validated();
+        
+        if (!strlen($despesaValidated['categoria']) or isNull($despesaValidated['categoria'])) {
+            $despesaValidated['categoria'] = 'Outras';
+        }
+        
+        return $this->despesaRepository->create($despesaValidated);
     }
 
     public function update(DespesaRequest $despesaRequest, int $despesa_id)
@@ -39,8 +47,14 @@ class DespesaService
         if (!$despesa){
             return null;
         }
+
+        $despesaValidated = $despesaRequest->validated();
+
+        if (!strlen($despesaValidated['categoria']) or isNull($despesaValidated['categoria'])) {
+            $despesaValidated['categoria'] = 'Outras';
+        }
         
-        $despesa->update($despesaRequest->validated());
+        $despesa->update($despesaValidated);
         
         return $despesa;
     }
