@@ -4,18 +4,20 @@ namespace App\Services;
 
 use App\Http\Requests\ReceitaRequest;
 use App\Models\Receita;
+use App\Repositories\ReceitaRepository;
+use Illuminate\Http\Request;
 
 class ReceitaService
 {
 
-    public function __construct(protected Receita $receitaRepository)
+    public function __construct(protected ReceitaRepository $receitaRepository)
     {
         
     }
 
-    public function getAll() 
+    public function getAll(Request $request) 
     {
-        $receitas = $this->receitaRepository->all();
+        $receitas = $this->receitaRepository->all($request->all());
 
         return $receitas;
     }

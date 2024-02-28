@@ -7,6 +7,7 @@ use App\Http\Requests\ReceitaRequest;
 use App\Http\Resources\ReceitaResource;
 use App\Services\ReceitaService;
 use App\Traits\HttpResponses;
+use Illuminate\Http\Request;
 
 class ReceitaController extends Controller
 {
@@ -18,9 +19,9 @@ class ReceitaController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $receitas = $this->receitaService->getAll();
+        $receitas = $this->receitaService->getAll($request);
 
         $receitasJson = ReceitaResource::collection($receitas);
         
