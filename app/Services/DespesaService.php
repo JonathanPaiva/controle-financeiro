@@ -3,21 +3,22 @@
 namespace App\Services;
 
 use App\Http\Requests\DespesaRequest;
-use App\Models\Despesa;
+use App\Repositories\DespesaRepository;
+use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isNull;
 
 class DespesaService
 {
 
-    public function __construct(protected Despesa $despesaRepository)
+    public function __construct(protected DespesaRepository $despesaRepository)
     {
         
     }
 
-    public function getAll() 
+    public function getAll(Request $request) 
     {
-        $despesas = $this->despesaRepository->all();
+        $despesas = $this->despesaRepository->all($request->all());
 
         return $despesas;
     }

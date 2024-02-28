@@ -7,6 +7,7 @@ use App\Http\Requests\DespesaRequest;
 use App\Http\Resources\DespesaResource;
 use App\Services\DespesaService;
 use App\Traits\HttpResponses;
+use Illuminate\Http\Request;
 
 class DespesaController extends Controller
 {
@@ -17,9 +18,9 @@ class DespesaController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $despesas = $this->despesaService->getAll();
+        $despesas = $this->despesaService->getAll($request);
 
         $despesasJson = DespesaResource::collection($despesas);
         

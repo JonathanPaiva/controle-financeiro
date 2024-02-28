@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Requests\ReceitaRequest;
-use App\Models\Receita;
 use App\Repositories\ReceitaRepository;
 use Illuminate\Http\Request;
 
