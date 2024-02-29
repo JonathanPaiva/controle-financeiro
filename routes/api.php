@@ -34,3 +34,4 @@ Route::post('/despesas',[DespesaController::class,'store']);
 Route::get('/despesas/{id}',[DespesaController::class,'show']);
 Route::put('/despesas/{id}',[DespesaController::class,'store']);
 Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);
+Route::get('/despesas/{ano}/{mes}',[DespesaController::class,'despesaMensal']);

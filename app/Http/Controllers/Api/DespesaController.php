@@ -7,6 +7,7 @@ use App\Http\Requests\DespesaRequest;
 use App\Http\Resources\DespesaResource;
 use App\Services\DespesaService;
 use App\Traits\HttpResponses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DespesaController extends Controller
@@ -15,7 +16,7 @@ class DespesaController extends Controller
 
     public function __construct(protected DespesaService $despesaService)
     {
-        
+
     }
 
     public function index(Request $request)
@@ -23,7 +24,7 @@ class DespesaController extends Controller
         $despesas = $this->despesaService->getAll($request);
 
         $despesasJson = DespesaResource::collection($despesas);
-        
+
         return $this->successResponse('Sucesso',200,$despesasJson);
     }
 
@@ -31,7 +32,7 @@ class DespesaController extends Controller
     {
 
         if ($despesa_id) {
-            
+
             if ($despesa_id <> $despesaRequest->id) {
                 return $this->errorResponse('Despesa com parâmetros incorretos', 406);
             }
@@ -74,5 +75,22 @@ class DespesaController extends Controller
         }
 
         return $this->successResponse('Despesa Deletada', 204);
+    }
+
+    public function despesaMensal(int $ano, int $mes)
+    {
+        if (!$mes>0 & !$mes<=12) {
+            return $this->errorResponse('Despesa com parâmetros incorretos', 406);
+        }
+
+        $despesasMensal = $this->despesaService->despesaMensal($ano, $mes);
+
+        if (!$despesasMensal) {
+            return $this->errorResponse('Despesas não encontradas', 404);
+        }
+
+        $despesasMensalJson = DespesaResource::collection($despesasMensal);
+
+        return $this->successResponse('Sucesso', 200, $despesasMensalJson);
     }
 }

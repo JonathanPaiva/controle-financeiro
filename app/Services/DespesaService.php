@@ -13,10 +13,10 @@ class DespesaService
 
     public function __construct(protected DespesaRepository $despesaRepository)
     {
-        
+
     }
 
-    public function getAll(Request $request) 
+    public function getAll(Request $request)
     {
         $despesas = $this->despesaRepository->all($request->all());
 
@@ -33,11 +33,11 @@ class DespesaService
     public function create(DespesaRequest $despesaRequest)
     {
         $despesaValidated = $despesaRequest->validated();
-        
+
         if (!strlen($despesaValidated['categoria']) or isNull($despesaValidated['categoria'])) {
             $despesaValidated['categoria'] = 'Outras';
         }
-        
+
         return $this->despesaRepository->create($despesaValidated);
     }
 
@@ -54,9 +54,9 @@ class DespesaService
         if (!strlen($despesaValidated['categoria']) or isNull($despesaValidated['categoria'])) {
             $despesaValidated['categoria'] = 'Outras';
         }
-        
+
         $despesa->update($despesaValidated);
-        
+
         return $despesa;
     }
 
@@ -67,10 +67,17 @@ class DespesaService
         if (!$despesa) {
             return false;
         }
-        
+
         $despesa->delete();
 
         return true;
+    }
+
+    public function despesaMensal(int $ano, int $mes)
+    {
+        $despesaMensal = $this->despesaRepository->despesaMensal($ano, $mes);
+
+        return $despesaMensal;
     }
 
 }
