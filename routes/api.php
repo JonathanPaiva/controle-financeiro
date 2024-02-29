@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\DespesaController;
 use App\Http\Controllers\Api\ReceitaController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ResumoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +35,5 @@ Route::get('/despesas/{id}',[DespesaController::class,'show']);
 Route::put('/despesas/{id}',[DespesaController::class,'store']);
 Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);
 Route::get('/despesas/{ano}/{mes}',[DespesaController::class,'despesaMensal']);
+
+Route::get('/resumo/{ano}/{mes}',[ResumoController::class,'index']);
