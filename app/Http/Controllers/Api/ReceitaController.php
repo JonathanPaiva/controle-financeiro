@@ -76,4 +76,21 @@ class ReceitaController extends Controller
 
         return $this->successResponse('Receita Deletada', 204);
     }
+
+    public function receitaMensal(int $ano, int $mes)
+    {
+        if (!$mes>0 & !$mes<=12) {
+            return $this->errorResponse('Receita com parâmetros incorretos', 406);
+        }
+
+        $receitasMensal = $this->receitaService->receitaMensal($ano, $mes);
+
+        if (!$receitasMensal) {
+            return $this->errorResponse('Receitas não encontradas', 404);
+        }
+
+        $receitasMensalJson = ReceitaResource::collection($receitasMensal);
+
+        return $this->successResponse('Sucesso', 200, $receitasMensalJson);
+    }
 }

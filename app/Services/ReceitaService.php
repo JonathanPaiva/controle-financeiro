@@ -59,4 +59,11 @@ class ReceitaService
         return true;
     }
 
+    public function receitaMensal(int $ano, int $mes)
+    {
+        $receitaMensal = $this->receitaRepository->receitaMensal($ano, $mes);
+
+        return $receitaMensal;
+    }
+
 }

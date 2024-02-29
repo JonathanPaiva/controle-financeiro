@@ -26,6 +26,7 @@ Route::post('/receitas',[ReceitaController::class,'store']);
 Route::get('/receitas/{id}',[ReceitaController::class,'show']);
 Route::put('/receitas/{id}',[ReceitaController::class,'store']);
 Route::delete('/receitas/{id}', [ReceitaController::class,'destroy']);
+Route::get('/receitas/{ano}/{mes}',[ReceitaController::class,'receitaMensal']);
 
 //Route::apiResource('/despesas', DespesaController::class);
 Route::get('/despesas',[DespesaController::class,'index']);
