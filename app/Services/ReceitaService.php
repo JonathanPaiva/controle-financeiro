@@ -11,10 +11,10 @@ class ReceitaService
 
     public function __construct(protected ReceitaRepository $receitaRepository)
     {
-        
+
     }
 
-    public function getAll(Request $request) 
+    public function getAll(Request $request)
     {
         $receitas = $this->receitaRepository->all($request->all());
 
@@ -40,9 +40,9 @@ class ReceitaService
         if (!$receita){
             return null;
         }
-        
+
         $receita->update($receitaRequest->validated());
-        
+
         return $receita;
     }
 
@@ -53,7 +53,7 @@ class ReceitaService
         if (!$receita) {
             return false;
         }
-        
+
         $receita->delete();
 
         return true;
@@ -66,4 +66,10 @@ class ReceitaService
         return $receitaMensal;
     }
 
+    public function totalReceitaMensal(int $ano, int $mes)
+    {
+        $totalMensal = $this->receitaRepository->totalReceitaMensal($ano,$mes);
+
+        return $totalMensal;
+    }
 }

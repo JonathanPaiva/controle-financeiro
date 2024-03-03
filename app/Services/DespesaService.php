@@ -80,4 +80,17 @@ class DespesaService
         return $despesaMensal;
     }
 
+    public function totalDespesaMensal(int $ano, int $mes)
+    {
+        $totalMensal = $this->despesaRepository->totalDespesaMensal($ano,$mes);
+
+        return $totalMensal;
+    }
+
+    public function totalDespesaValorCategoriaMensal(int $ano, int $mes)
+    {
+        $valorPorCategoria = $this->despesaRepository->totalDespesaValorCategoriaMensal($ano,$mes);
+
+        return $valorPorCategoria;
+    }
 }

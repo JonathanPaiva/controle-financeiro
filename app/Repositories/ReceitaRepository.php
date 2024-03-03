@@ -9,7 +9,7 @@ class ReceitaRepository
 {
     public function __construct(protected Receita $model)
     {
-        
+
     }
 
     public function paginate()
@@ -18,17 +18,17 @@ class ReceitaRepository
     }
 
     public function all(array $filtros = []) : Collection|null
-    {           
+    {
         if (count($filtros)) {
             $receitas = $this->model->query();
-            
+
             foreach ($filtros as $key => $value) {
                 $receitasFiltradas = $receitas->where($key, 'LIKE', "%$value%")->get();
             }
-            
+
             return $receitasFiltradas->sortByDesc('data');
         }
-        
+
         $receitas = $this->model->all()->sortByDesc('data');
 
         return $receitas;
@@ -54,8 +54,27 @@ class ReceitaRepository
 
         $receitaMesal = $this->model->query()->whereMonth('data', '=', $mes)
                                              ->whereYear('data', '=', $ano)
-                                             ->get();    
+                                             ->get();
 
         return $receitaMesal->sortByDesc('data');
+    }
+
+    public function totalReceitaMensal(int $ano, int $mes) : array
+    {
+        $ValorMensal = $this->model->query()->whereMonth('data', '=', $mes)
+                                            ->whereYear('data', '=', $ano)
+                                            ->sum('valor');
+
+        $QtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
+                                            ->whereYear('data', '=', $ano)
+                                            ->count('id');
+
+        $totalReceitaMensal = [
+            'tipo' => 'C',
+            'quantidade' => $QtdMensal,
+            'valor' => $ValorMensal
+        ];
+
+        return $totalReceitaMensal;
     }
 }

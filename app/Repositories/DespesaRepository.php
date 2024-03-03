@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Despesa;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class DespesaRepository
 {
@@ -57,5 +58,36 @@ class DespesaRepository
                                              ->get();
 
         return $despesaMesal->sortByDesc('data');
+    }
+
+    public function totalDespesaMensal(int $ano, int $mes) : array
+    {
+        $ValorMensal = $this->model->query()->whereMonth('data', '=', $mes)
+                                            ->whereYear('data', '=', $ano)
+                                            ->sum('valor');
+
+        $QtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
+                                            ->whereYear('data', '=', $ano)
+                                            ->count('id');
+
+        $totalDespesaMensal = [
+            'tipo' => 'D',
+            'quantidade' => $QtdMensal,
+            'valor' => $ValorMensal
+        ];
+
+        return $totalDespesaMensal;
+    }
+
+    public function totalDespesaValorCategoriaMensal(int $ano, int $mes) : array
+    {
+        $valorPorCategoria = $this->model->select('categoria', DB::raw('SUM(valor) as total'))
+                                                        ->whereMonth('data', '=', $mes)
+                                                        ->whereYear('data', '=', $ano)
+                                                        ->groupBy('categoria')
+                                                        ->get()
+                                                        ->toArray();
+
+        return $valorPorCategoria;
     }
 }
