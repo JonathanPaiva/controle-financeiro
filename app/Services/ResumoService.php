@@ -30,7 +30,6 @@ class ResumoService
         $saldo = $receita['valor'] - $despesa['valor'];
 
         return [
-            'tipo' => 'Saldo',
             'valor' => $saldo
         ];
     }
@@ -54,10 +53,10 @@ class ResumoService
             'receita' => $totalReceitaMensal,
             'despesa' => $totalDespesaMensal,
             'saldo' => $saldoMensal,
-            'despesa_por_categoria' => $totalDespesaValorCategoriaMensal
+            'despesas_por_categoria' => $totalDespesaValorCategoriaMensal
         ];
 
-        dd($totalMensal);
+        //dd($totalMensal);
 
         return $totalMensal;
     }

@@ -18,6 +18,6 @@ class ResumoController extends Controller
     {
         $totalMensal = $this->resumoService->totalMensal($ano, $mes);
 
-        dd("teste resumo - $ano - $mes");
+        return $this->successResponse('Sucesso',200,$totalMensal);
     }
 }

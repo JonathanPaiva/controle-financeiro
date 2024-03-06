@@ -62,18 +62,17 @@ class DespesaRepository
 
     public function totalDespesaMensal(int $ano, int $mes) : array
     {
-        $ValorMensal = $this->model->query()->whereMonth('data', '=', $mes)
+        $valorMensal = $this->model->query()->whereMonth('data', '=', $mes)
                                             ->whereYear('data', '=', $ano)
                                             ->sum('valor');
 
-        $QtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
+        $qtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
                                             ->whereYear('data', '=', $ano)
                                             ->count('id');
 
         $totalDespesaMensal = [
-            'tipo' => 'D',
-            'quantidade' => $QtdMensal,
-            'valor' => $ValorMensal
+            'quantidade' => $qtdMensal,
+            'valor' => $valorMensal
         ];
 
         return $totalDespesaMensal;
@@ -87,6 +86,8 @@ class DespesaRepository
                                                         ->groupBy('categoria')
                                                         ->get()
                                                         ->toArray();
+
+        sort($valorPorCategoria);
 
         return $valorPorCategoria;
     }

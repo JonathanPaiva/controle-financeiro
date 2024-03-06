@@ -6,6 +6,7 @@ use App\Http\Requests\DespesaRequest;
 use App\Repositories\DespesaRepository;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 
 class DespesaService
@@ -34,7 +35,8 @@ class DespesaService
     {
         $despesaValidated = $despesaRequest->validated();
 
-        if (!strlen($despesaValidated['categoria']) or isNull($despesaValidated['categoria'])) {
+
+        if (strlen($despesaValidated['categoria']) == 0 or !isNull($despesaValidated['categoria'])) {
             $despesaValidated['categoria'] = 'Outras';
         }
 

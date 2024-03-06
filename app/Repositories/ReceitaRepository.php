@@ -61,18 +61,17 @@ class ReceitaRepository
 
     public function totalReceitaMensal(int $ano, int $mes) : array
     {
-        $ValorMensal = $this->model->query()->whereMonth('data', '=', $mes)
+        $valorMensal = $this->model->query()->whereMonth('data', '=', $mes)
                                             ->whereYear('data', '=', $ano)
                                             ->sum('valor');
 
-        $QtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
+        $qtdMensal = $this->model->query()->whereMonth('data', '=', $mes)
                                             ->whereYear('data', '=', $ano)
                                             ->count('id');
 
         $totalReceitaMensal = [
-            'tipo' => 'C',
-            'quantidade' => $QtdMensal,
-            'valor' => $ValorMensal
+            'quantidade' => $qtdMensal,
+            'valor' => $valorMensal
         ];
 
         return $totalReceitaMensal;
