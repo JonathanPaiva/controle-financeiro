@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\DespesaController;
 use App\Http\Controllers\Api\ReceitaController;
 use App\Http\Controllers\Api\ResumoController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +39,9 @@ Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);
 Route::get('/despesas/{ano}/{mes}',[DespesaController::class,'despesaMensal']);
 
 Route::get('/resumo/{ano}/{mes}',[ResumoController::class,'index']);
+
+Route::get('/users',[UserController::class,'index']);
+Route::post('/users',[UserController::class,'store']);
+Route::get('/users/{id}',[UserController::class,'show']);
+
+Route::post('/login',[AuthController::class,'login']);
