@@ -22,26 +22,31 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-//Route::apiResource('/receitas', ReceitaController::class);
-Route::get('/receitas',[ReceitaController::class,'index']);
-Route::post('/receitas',[ReceitaController::class,'store']);
-Route::get('/receitas/{id}',[ReceitaController::class,'show']);
-Route::put('/receitas/{id}',[ReceitaController::class,'store']);
-Route::delete('/receitas/{id}', [ReceitaController::class,'destroy']);
-Route::get('/receitas/{ano}/{mes}',[ReceitaController::class,'receitaMensal']);
+Route::middleware('auth:sanctum')->group(function () {
+    
+    //Route::apiResource('/receitas', ReceitaController::class);
+    Route::get('/receitas',[ReceitaController::class,'index']);
+    Route::post('/receitas',[ReceitaController::class,'store']);
+    Route::get('/receitas/{id}',[ReceitaController::class,'show']);
+    Route::put('/receitas/{id}',[ReceitaController::class,'store']);
+    Route::delete('/receitas/{id}', [ReceitaController::class,'destroy']);
+    Route::get('/receitas/{ano}/{mes}',[ReceitaController::class,'receitaMensal']);
 
-//Route::apiResource('/despesas', DespesaController::class);
-Route::get('/despesas',[DespesaController::class,'index']);
-Route::post('/despesas',[DespesaController::class,'store']);
-Route::get('/despesas/{id}',[DespesaController::class,'show']);
-Route::put('/despesas/{id}',[DespesaController::class,'store']);
-Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);
-Route::get('/despesas/{ano}/{mes}',[DespesaController::class,'despesaMensal']);
+    //Route::apiResource('/despesas', DespesaController::class);
+    Route::get('/despesas',[DespesaController::class,'index']);
+    Route::post('/despesas',[DespesaController::class,'store']);
+    Route::get('/despesas/{id}',[DespesaController::class,'show']);
+    Route::put('/despesas/{id}',[DespesaController::class,'store']);
+    Route::delete('/despesas/{id}', [DespesaController::class,'destroy']);
+    Route::get('/despesas/{ano}/{mes}',[DespesaController::class,'despesaMensal']);
+    
+    Route::get('/resumo/{ano}/{mes}',[ResumoController::class,'index']);
 
-Route::get('/resumo/{ano}/{mes}',[ResumoController::class,'index']);
+    Route::get('/users',[UserController::class,'index']);
+    Route::get('/users/{id}',[UserController::class,'show']);
 
-Route::get('/users',[UserController::class,'index']);
+});
+
 Route::post('/users',[UserController::class,'store']);
-Route::get('/users/{id}',[UserController::class,'show']);
 
 Route::post('/login',[AuthController::class,'login']);
